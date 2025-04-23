@@ -11,8 +11,6 @@ jobs:
       - name: repo code check
         uses: actions/checkout@v4
       - run: echo "${{ github.repository }} "
-      - run: echo ""
       - name: file list
         run: |
           ls ${{ github.workspace }}
-      - run: echo ""
