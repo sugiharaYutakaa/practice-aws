@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { getUsers } from '@/app/api/usersApi';
 import { useState } from 'react';
 
