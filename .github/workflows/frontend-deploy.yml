@@ -34,5 +34,5 @@ jobs:
           amplify pull --yes --envName test  --appId d3bmjclj64fc20
 
       - name: Publish to Amplify Hosting
-        working-directory: frontend
         run: amplify publish --yes
+        working-directory: frontend
