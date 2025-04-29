@@ -1,0 +1,6 @@
+{
+    "envName": "test",
+    "appId": "your-app-id",
+    "defaultEditor": "code",
+    "defaultEnvironment": "test"
+}
