@@ -16,12 +16,13 @@ jobs:
         run: cd frontend | npm install
         working-directory: frontend
 
-      - name: Pull Amplify environment
-        run: amplify pull --yes --envName test
 
       - name: Install amplify-cli
         run: npm install -g @aws-amplify/cli
         working-directory: frontend
+      
+      - name: Pull Amplify environment
+        run: amplify pull --yes --envName test
 
       - name: build
         run: npm run build
