@@ -13,7 +13,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: cd frontend | npm install
+        run: npm install
         working-directory: frontend
 
 
@@ -30,6 +30,7 @@ jobs:
       
       - name: Pull Amplify environment
         run: amplify pull --yes --envName test
+        working-directory: frontend
 
       - name: ls
         run : ls -la
