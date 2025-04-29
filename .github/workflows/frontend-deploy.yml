@@ -31,5 +31,8 @@ jobs:
         run: |
           npm install -g @aws-amplify/cli
           cd frontend
-          amplify pull --yes --envName 
-          amplify publish --yes
+          amplify pull --yes --envName test  --appId d3bmjclj64fc20
+
+      - name: Publish to Amplify Hosting
+        working-directory: ${{ env.FRONTEND_DIR }}
+        run: amplify publish --yes
