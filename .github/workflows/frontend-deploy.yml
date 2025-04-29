@@ -5,15 +5,15 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      name: Checkout repo
-      uses: actions/checkout@v4
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-      name: Install dependencies
-      run: cd frontend | npm install
-      run: cd frontend | npm install -g @aws-amplify/cli
-      run: cd frontend | amplify publish --yes
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.FRONTEND_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.FRONTEND_AWS_SECRET_ACCESS_KEY }}
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: cd frontend | npm install
+        run: cd frontend | npm install -g @aws-amplify/cli
+        run: cd frontend | amplify publish --yes
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FRONTEND_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FRONTEND_AWS_SECRET_ACCESS_KEY }}
