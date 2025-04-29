@@ -1,0 +1,20 @@
+name: frontend build and deploy warkflow
+run-name: ${{ github.actor }} test
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+        run: cd frontend
+      - name: Install dependencies
+      - run: npm install
+      - run: npm install -g @aws-amplify/cli
+      - run: amplify publish --yes
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FRONTEND_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FRONTEND_AWS_SECRET_ACCESS_KEY }}
