@@ -16,22 +16,14 @@ jobs:
         run: npm install
         working-directory: frontend
 
-      - name: Create Profile
-        uses: webfactory/create-aws-profile@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-1
-      
-      - name: Pull Amplify environment
-        run: amplify pull --yes --envName test --appId d3bmjclj64fc20
-        working-directory: frontend
 
-      - name: ls
-        run : ls -la
-        working-directory: frontend
-
-      - name: Build
+      - name: build
         run: npm run build
         working-directory: frontend
 
@@ -39,5 +31,5 @@ jobs:
         run: |
           npm install -g @aws-amplify/cli
           cd frontend
-          amplify pull --yes --envName test
+          amplify pull --yes --envName 
           amplify publish --yes
