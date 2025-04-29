@@ -18,7 +18,7 @@
       "service": "amplifyhosting",
       "type": "manual",
       "output": {},
-      "lastPushTimeStamp": "2025-04-29T10:47:46.734Z",
+      "lastPushTimeStamp": "2025-04-29T09:42:30.957Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-frontend-test-cef4b-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"
