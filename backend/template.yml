@@ -1,22 +1,98 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+Description: Lambda with VPC, RDS, and NAT Gateway
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs18.x
+    VpcConfig:
+      SecurityGroupIds:
+        - !Ref LambdaSecurityGroup
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+
 Resources:
-  ExpressApi:
+
+  # VPC
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: MySAMVPC
+
+  # サブネット（プライベート x2）
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: 10.0.1.0/24
+
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      AvailabilityZone: !Select [1, !GetAZs '']
+      CidrBlock: 10.0.2.0/24
+
+  # NAT Gateway用パブリックサブネットも必要
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: 10.0.0.0/24
+
+  # インターネットゲートウェイ + ルート設定（省略可能）
+
+  # NAT Gateway（Elastic IPが必要）
+  NatEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  NATGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatEIP.AllocationId
+      SubnetId: !Ref PublicSubnet
+
+  # プライベートルートテーブルでNAT Gatewayを経由
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+
+  RouteToInternet:
+    Type: AWS::EC2::Route
+    DependsOn: NATGateway
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NATGateway
+
+  # Lambda実行関数
+  MyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: lambda.handler
-      Runtime: nodejs18.x
-      CodeUri: ./
-      MemorySize: 128
-      Timeout: 10
+      Handler: index.handler
+      CodeUri: ./src/
       Events:
-        ProxyApiRoot:
+        ApiEvent:
           Type: Api
           Properties:
-            Path: /
-            Method: ANY
-        ProxyApiAll:
-          Type: Api
-          Properties:
-            Path: /{proxy+}
-            Method: ANY
+            Path: /myapi
+            Method: post
+
+  # LambdaとRDSのセキュリティグループ、RDS定義なども追加
+
+Outputs:
+  ApiEndpoint:
+    Description: "API Gateway endpoint"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/myapi"
