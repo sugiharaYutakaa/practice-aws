@@ -23,6 +23,10 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-frontend-test-cef4b-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"
       }
+    },
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation"
     }
   }
 }
