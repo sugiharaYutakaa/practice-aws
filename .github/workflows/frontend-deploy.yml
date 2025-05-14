@@ -34,5 +34,5 @@ jobs:
           amplify pull --yes --envName stage  --appId d34txdnem3hqxu
 
       - name: Publish to Amplify Hosting
-        working-directory: ${{ env.FRONTEND_DIR }}
         run: amplify publish --yes
+        working-directory: frontend
