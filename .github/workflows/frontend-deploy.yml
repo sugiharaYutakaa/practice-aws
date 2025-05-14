@@ -10,7 +10,7 @@ jobs:
       - name: Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -27,11 +27,9 @@ jobs:
         run: npm run build
         working-directory: frontend
 
-      - name: Amplify Pull
+      - name: Amplify install
         run: |
           npm install -g @aws-amplify/cli
-          cd frontend
-          amplify pull --yes --envName test  --appId d3bmjclj64fc20
 
       - name: Publish to Amplify Hosting
         run: amplify publish --yes
