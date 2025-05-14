@@ -1,3 +1,4 @@
 {
-    "bucketName": "elearninggggg-20250514183129-hostingbucket"
+    "bucketName": "elearninggggg-20250514183129-hostingbucket",
+     "OutputDirectory": "out"
 }
