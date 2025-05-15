@@ -31,7 +31,7 @@ jobs:
         run: |
           npm install -g @aws-amplify/cli
           cd frontend
-          amplify pull --yes --envName stage  --appId d34txdnem3hqxu
+          amplify pull --yes --envName dev  --appId d1qxiqbkehkhd9
 
       - name: Publish to Amplify Hosting
         run: amplify publish --yes
