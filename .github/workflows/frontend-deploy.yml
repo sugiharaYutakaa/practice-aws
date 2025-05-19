@@ -5,7 +5,7 @@ env:
   AWS_REGION: ap-northeast-1
   AMPLIFY_ENV: stage
   AMPLIFY_APP_ID: d1qxiqbkehkhd9
-  AWS_ACCOUNT_ID: 021891571401
+  ROLE: arn:aws:iam::021891571401:role/elearning-amplify-stage-Role
   FRONTEND_DIR: frontend
 
 on:
@@ -28,7 +28,7 @@ jobs:
       - name: Setup AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/elearning-amplify-stage-Role
+          role-to-assume: ${{ env.ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Setup node.js 20
