@@ -1,15 +1,15 @@
 {
   "providers": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-eleleleel-stage-8da54-authRole",
-      "UnauthRoleArn": "arn:aws:iam::021891571401:role/amplify-eleleleel-stage-8da54-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::021891571401:role/amplify-eleleleel-stage-8da54-authRole",
+      "AuthRoleName": "amplify-practiceaws-stage-cb28b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::021891571401:role/amplify-practiceaws-stage-cb28b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::021891571401:role/amplify-practiceaws-stage-cb28b-authRole",
       "Region": "ap-northeast-1",
-      "DeploymentBucketName": "amplify-eleleleel-stage-8da54-deployment",
-      "UnauthRoleName": "amplify-eleleleel-stage-8da54-unauthRole",
-      "StackName": "amplify-eleleleel-stage-8da54",
-      "StackId": "arn:aws:cloudformation:ap-northeast-1:021891571401:stack/amplify-eleleleel-stage-8da54/567e0f90-349c-11f0-9df4-0e810c2dbecd",
-      "AmplifyAppId": "dz8w2b63qvta8"
+      "DeploymentBucketName": "amplify-practiceaws-stage-cb28b-deployment",
+      "UnauthRoleName": "amplify-practiceaws-stage-cb28b-unauthRole",
+      "StackName": "amplify-practiceaws-stage-cb28b",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:021891571401:stack/amplify-practiceaws-stage-cb28b/883edf90-34a7-11f0-945a-0a0cbbce4fd1",
+      "AmplifyAppId": "d3nxp7ngcvtvvt"
     }
   },
   "hosting": {

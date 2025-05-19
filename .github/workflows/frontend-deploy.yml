@@ -4,7 +4,7 @@ run-name: Deploying frontend to stage by @${{ github.actor }}
 env:
   AWS_REGION: ap-northeast-1
   AMPLIFY_ENV: stage
-  AMPLIFY_APP_ID: dz8w2b63qvta8
+  AMPLIFY_APP_ID: d3nxp7ngcvtvvt
   ROLE: arn:aws:iam::021891571401:role/elearning-amplify-stage-Role
   FRONTEND_DIR: frontend
 
