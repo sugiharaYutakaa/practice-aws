@@ -49,6 +49,7 @@ jobs:
           npm install -g @aws-amplify/cli
           cd ${{ env.FRONTEND_DIR }}
           amplify pull --yes --envName ${{ env.AMPLIFY_ENV }}  --appId ${{ env.AMPLIFY_APP_ID }}
+        working-directory: ${{ env.FRONTEND_DIR }}
 
       - name: Publish to amplify hosting
         run: amplify publish --yes
