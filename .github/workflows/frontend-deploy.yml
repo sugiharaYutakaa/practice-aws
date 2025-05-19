@@ -1,38 +1,55 @@
-name: frontend build and deploy warkflow
-run-name: ${{ github.actor }} test
-on: [push]
+name: Build and deploy frontend  (Stage)
+run-name: Deploying frontend to stage by @${{ github.actor }}
+
+env:
+  AWS_REGION: ap-northeast-1
+  AMPLIFY_ENV: stage
+  AMPLIFY_APP_ID: d1qxiqbkehkhd9
+  AWS_ACCOUNT_ID: 021891571401
+  FRONTEND_DIR: frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**"
+
 jobs:
-  Explore-GitHub-Actions:
+  deploy-frontend:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: frontend
-
-      - name: Configure AWS credentials
+      - name: Setup AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/elearning-amplify-stage-Role
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: build
-        run: npm run build
-        working-directory: frontend
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
 
-      - name: Amplify Pull
-        run: |
-          npm install -g @aws-amplify/cli
-          cd frontend
-          amplify pull --yes --envName dev  --appId d1qxiqbkehkhd9
+      # - name: Setup node.js 20
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "20"
 
-      - name: Publish to Amplify Hosting
-        run: amplify publish --yes
-        working-directory: frontend
+      # - name: Install frontend dependencies
+      #   run: npm install
+      #   working-directory: ${{ env.FRONTEND_DIR }}
+
+      # - name: Build frontend application
+      #   run: npm run build
+      #   working-directory: ${{ env.FRONTEND_DIR }}
+
+      # - name: Amplify Pull
+      #   run: |
+      #     npm install -g @aws-amplify/cli
+      #     cd ${{ env.FRONTEND_DIR }}
+      #     amplify pull --yes --envName ${{ env.AMPLIFY_ENV }}  --appId ${{ env.AMPLIFY_APP_ID }}
+
+      # - name: Publish to amplify hosting
+      #   run: amplify publish --yes
+      #   working-directory: ${{ env.FRONTEND_DIR }}
